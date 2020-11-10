@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QIcon>
 
 #include "connectionsettings.h"
 
@@ -11,7 +12,12 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    QIcon::setThemeName("maintheme");
+
     QQmlApplicationEngine engine;
+
+    QObject::connect(&engine, &QQmlApplicationEngine::quit, &QGuiApplication::quit);
+
     qmlRegisterType<ConnectionSettings>("data.connectionsettings", 1, 0, "ConnectionSettings");
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

@@ -19,7 +19,8 @@ echo "Comment=${themename}" >> $themefile
 
 directories="Directories="
 
-resolutions=(16 32 64)
+# 24 is a default value for RoundButton(everywhere?)
+resolutions=(16 24 32 64)
 
 for resolution in ${resolutions[@]}
 do

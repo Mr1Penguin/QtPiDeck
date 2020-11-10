@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>icons/maintheme/index.theme</file>
         <file>icons/maintheme/16x16/close.png</file>
+        <file>icons/maintheme/24x24/close.png</file>
         <file>icons/maintheme/32x32/close.png</file>
         <file>icons/maintheme/64x64/close.png</file>
     </qresource>

@@ -11,6 +11,7 @@ Window {
     visible: true
     width: 640
     height: 480
+    visibility: "FullScreen"
     title: qsTr("QtPiDeck")
 
     ConnectionSettings {
@@ -22,6 +23,23 @@ Window {
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.bottom: inputPanel.top
+
+        Item {
+            anchors.top: parent.top
+            anchors.topMargin: 15
+            anchors.right: parent.right
+            anchors.rightMargin: 15
+            width: globalControls.implicitWidth
+
+            ColumnLayout {
+                id: globalControls
+                RoundButton {
+                    id:rbi
+                    icon.name: "close"
+                    onClicked: Qt.quit()
+                }
+            }
+        }
 
         ColumnLayout {
             anchors.centerIn: parent
