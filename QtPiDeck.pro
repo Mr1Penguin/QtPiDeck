@@ -17,7 +17,8 @@ SOURCES += \
         connectionsettings.cpp \
         main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    icons.qrc
 
 TRANSLATIONS =
 
