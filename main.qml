@@ -28,15 +28,73 @@ Window {
             anchors.top: parent.top
             anchors.topMargin: 15
             anchors.right: parent.right
-            anchors.rightMargin: 15
+            anchors.rightMargin: 15 + dropDownButton.width
             width: globalControls.implicitWidth
 
-            ColumnLayout {
+            Rectangle {
                 id: globalControls
+
                 RoundButton {
-                    id:rbi
-                    icon.name: "close"
-                    onClicked: Qt.quit()
+                    id: dropDownButton
+                    icon.name: "dropdown"
+                    icon.width: 32
+                    icon.height: 32
+                    z: 1
+                    onClicked: {
+                        icon.name = icon.name == "dropdown" ? "dropup" : "dropdown"
+                    }
+                    Component.onCompleted: {
+                        console.log(width)
+                    }
+                }
+
+                ListModel{
+                    id: globalOptions
+                    ListElement {
+                        iconName: "close"
+                    }
+                }
+
+                signal clickIndexSignal(var i)
+                onClickIndexSignal: {
+                    switch(i) {
+                    case 0:
+                        Qt.quit();
+                    }
+                }
+
+                Repeater {
+                    model: globalOptions
+                    RoundButton {
+                        icon.name: iconName
+                        icon.width: dropDownButton.icon.width
+                        icon.height: dropDownButton.icon.height
+                        onClicked: globalControls.clickIndexSignal(index)
+                        y: 0
+                        id: globalOption
+
+                        states: State {
+                            name: "visible"
+                            when: dropDownButton.icon.name == "dropup"
+                            PropertyChanges {
+                                target: globalOption
+                                y: (globalOption.height + 8) * (index + 1)
+                            }
+                        }
+
+                        transitions: Transition {
+                            from: ""
+                            to: "visible"
+                            reversible: true
+                            ParallelAnimation {
+                                NumberAnimation {
+                                    properties: "y"
+                                    duration: 250
+                                    easing.type: Easing.InOutQuad
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
