@@ -1,7 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/16x16/close.png</file>
-        <file>icons/32x32/close.png</file>
-        <file>icons/64x64/close.png</file>
+        <file>icons/maintheme/index.theme</file>
+        <file>icons/maintheme/16x16/close.png</file>
+        <file>icons/maintheme/32x32/close.png</file>
+        <file>icons/maintheme/64x64/close.png</file>
     </qresource>
 </RCC>
