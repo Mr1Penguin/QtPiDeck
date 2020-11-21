@@ -2,7 +2,7 @@
 #define CONNECTIONSETTINGS_H
 
 #include <QObject>
-#include <qqml.h>
+#include <QtQml>
 
 class ConnectionSettings : public QObject
 {
