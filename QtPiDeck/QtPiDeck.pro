@@ -13,9 +13,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+VPATH += \
+        src \
+        include \
+        qml
+
+
 SOURCES += \
-        connectionsettings.cpp \
-        main.cpp
+        Models/AppConfiguration.cpp \
+        main.cpp \
+        src/AppStartup.cpp \
+        src/DataManager.cpp
 
 RESOURCES += qml.qrc \
     icons.qrc
@@ -37,7 +45,12 @@ DISTFILES += \
     README.md
 
 HEADERS += \
-    connectionsettings.h
+    Models/AppConfiguration.hpp \
+    AppStartup.hpp \
+    include/DataManager.hpp \
+    include/Utils.hpp
+
+INCLUDEPATH += include
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../QtPiDeckCommon/release/ -lQtPiDeckCommon
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../QtPiDeckCommon/debug/ -lQtPiDeckCommon

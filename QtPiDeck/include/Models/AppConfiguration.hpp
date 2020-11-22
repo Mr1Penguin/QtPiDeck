@@ -1,10 +1,10 @@
-#ifndef CONNECTIONSETTINGS_H
-#define CONNECTIONSETTINGS_H
+#pragma once
 
 #include <QObject>
 #include <QtQml>
 
-class ConnectionSettings : public QObject
+namespace QtPiDeck::Models {
+class AppConfiguration : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString hostAddress READ hostAddress WRITE setHostAddress NOTIFY hostAddressChanged);
@@ -12,13 +12,14 @@ class ConnectionSettings : public QObject
     QML_ELEMENT
 
 public:
-    explicit ConnectionSettings(QObject *parent = nullptr);
+    explicit AppConfiguration(QObject *parent = nullptr);
 
     QString hostAddress();
     void setHostAddress(const QString & hostAddress);
     QString hostPort();
     void setHostPort(const QString & hostPort);
 
+    static void registerTypes();
 signals:
     void hostAddressChanged();
     void hostPortChanged();
@@ -27,5 +28,4 @@ private:
     QString m_hostAddress;
     QString m_hostPort;
 };
-
-#endif // CONNECTIONSETTINGS_H
+}
