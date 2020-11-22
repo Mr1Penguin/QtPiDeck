@@ -4,7 +4,7 @@ import QtQuick.VirtualKeyboard 2.4
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-import data.connectionsettings 1.0
+import data.appconfiguration 1.0
 
 Window {
     id: window
@@ -14,8 +14,8 @@ Window {
     visibility: "FullScreen"
     title: qsTr("QtPiDeck")
 
-    ConnectionSettings {
-        id: connectionsettings
+    AppConfiguration {
+        id: appconfiguration
     }
 
     Item {
@@ -104,17 +104,17 @@ Window {
             id:mainLayout
 
             TextField {
-                text: connectionsettings.hostAddress
+                text: appconfiguration.hostAddress
                 placeholderText: qsTr("Host address")
 
-                onTextChanged: connectionsettings.hostAddress = text
+                onTextChanged: appconfiguration.hostAddress = text
             }
 
             TextField {
-                text: connectionsettings.hostPort
+                text: appconfiguration.hostPort
                 placeholderText: qsTr("Host port")
 
-                onTextChanged: connectionsettings.hostPort = text
+                onTextChanged: appconfiguration.hostPort = text
             }
         }
     }
