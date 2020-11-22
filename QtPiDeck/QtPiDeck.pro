@@ -22,7 +22,8 @@ VPATH += \
 SOURCES += \
         Models/AppConfiguration.cpp \
         main.cpp \
-        src/AppStartup.cpp
+        src/AppStartup.cpp \
+        src/DataManager.cpp
 
 RESOURCES += qml.qrc \
     icons.qrc
@@ -45,7 +46,9 @@ DISTFILES += \
 
 HEADERS += \
     Models/AppConfiguration.hpp \
-    AppStartup.hpp
+    AppStartup.hpp \
+    include/DataManager.hpp \
+    include/Utils.hpp
 
 INCLUDEPATH += include
 

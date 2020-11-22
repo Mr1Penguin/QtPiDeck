@@ -18,6 +18,8 @@ public:
     void setHostAddress(const QString & hostAddress);
     QString hostPort();
     void setHostPort(const QString & hostPort);
+
+    static void registerTypes();
 signals:
     void hostAddressChanged();
     void hostPortChanged();

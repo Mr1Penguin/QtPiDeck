@@ -1,11 +1,14 @@
 #include <QCursor>
 #include <QGuiApplication>
+#include <QMetaType>
 
-#include "Models/appConfiguration.hpp"
+#include "DataManager.hpp"
+#include "Models/AppConfiguration.hpp"
 
 namespace QtPiDeck {
 void registerQmlTypes() {
-    qmlRegisterType<Models::AppConfiguration>("data.appconfiguration", 1, 0, "AppConfiguration");
+    DataManager::registerTypes();
+    Models::AppConfiguration::registerTypes();
 }
 
 void setCursorVisibility() {

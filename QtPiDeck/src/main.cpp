@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QIcon>
 
-#include "appStartup.hpp"
+#include "AppStartup.hpp"
 
 void setCursorVisibility();
 

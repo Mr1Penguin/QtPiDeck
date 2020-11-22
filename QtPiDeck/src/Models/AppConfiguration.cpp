@@ -1,8 +1,7 @@
-#include "Models/appConfiguration.hpp"
+#include "Models/AppConfiguration.hpp"
 
 namespace QtPiDeck::Models {
-AppConfiguration::AppConfiguration(QObject *parent) : QObject(parent)
-{
+AppConfiguration::AppConfiguration(QObject *parent) : QObject(parent) {
 }
 
 QString AppConfiguration::hostAddress() {
@@ -29,5 +28,9 @@ void AppConfiguration::setHostPort(const QString & hostPort) {
 
     m_hostPort = hostPort;
     emit hostPortChanged();
+}
+
+void AppConfiguration::registerTypes() {
+    qmlRegisterType<Models::AppConfiguration>("QtPiDeck", 1, 0, "AppConfiguration");
 }
 }
