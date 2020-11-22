@@ -20,9 +20,9 @@ VPATH += \
 
 
 SOURCES += \
-        Models/appConfiguration.cpp \
+        Models/AppConfiguration.cpp \
         main.cpp \
-        src/appStartup.cpp
+        src/AppStartup.cpp
 
 RESOURCES += qml.qrc \
     icons.qrc
@@ -44,8 +44,8 @@ DISTFILES += \
     README.md
 
 HEADERS += \
-    Models/appConfiguration.hpp \
-    include/appStartup.hpp
+    Models/AppConfiguration.hpp \
+    AppStartup.hpp
 
 INCLUDEPATH += include
 
