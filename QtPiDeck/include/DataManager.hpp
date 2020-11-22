@@ -16,10 +16,14 @@ class DataManager : public QObject
 public:
     Models::AppConfiguration* appConfiguration();
 
+    Q_INVOKABLE void loadConfiguration();
+    Q_INVOKABLE void saveConfiguration();
+
     static void registerTypes();
 protected:
     explicit DataManager(QObject *parent = nullptr);
 private:
     Models::AppConfiguration m_appConfiguration;
+    inline static const QString ConfigurationFilename = "config.json";
 };
 }

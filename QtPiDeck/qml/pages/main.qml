@@ -14,6 +14,10 @@ Window {
     visibility: "FullScreen"
     title: qsTr("QtPiDeck")
 
+    Component.onCompleted: {
+        DataManager.loadConfiguration()
+    }
+
     Item {
         anchors.left: parent.left
         anchors.top: parent.top
