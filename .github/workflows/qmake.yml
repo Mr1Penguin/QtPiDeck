@@ -51,4 +51,4 @@ jobs:
       - name: Build project
         run: |
           cd build
-          make
+          make -j3
