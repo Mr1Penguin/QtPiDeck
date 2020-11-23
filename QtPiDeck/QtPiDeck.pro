@@ -56,5 +56,5 @@ win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../QtPiDeckCommon/rele
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../QtPiDeckCommon/debug/ -lQtPiDeckCommon
 else:unix: LIBS += -L$$OUT_PWD/../QtPiDeckCommon/ -lQtPiDeckCommon
 
-INCLUDEPATH += $$PWD/../QtPiDeckCommon
+INCLUDEPATH += $$PWD/../QtPiDeckCommon/include
 DEPENDPATH += $$PWD/../QtPiDeckCommon
