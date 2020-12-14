@@ -4,6 +4,11 @@
 #include <QCursor>
 #include <QIcon>
 
+static void initStaticResouces() {
+    Q_INIT_RESOURCE(qml);
+    Q_INIT_RESOURCE(icons);
+}
+
 namespace QtPiDeck::Client {
 ClientApplication::ClientApplication() = default;
 
@@ -52,6 +57,8 @@ void ClientApplication::appStartupPreparations() {
 
     setCursorVisibility();
     registerQmlTypes();
+
+    initStaticResouces();
 }
 
 void ClientApplication::setupEngine(QQmlApplicationEngine & /*engine*/) {

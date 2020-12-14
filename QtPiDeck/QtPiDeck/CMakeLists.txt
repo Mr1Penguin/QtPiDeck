@@ -2,9 +2,7 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Quick VirtualKeyboard REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick VirtualKeyboard REQUIRED)
 
 add_executable(QtPiDeck
-    src/main.cpp
-    icons.qrc
-    qml.qrc)
+    src/main.cpp)
 
 target_link_libraries(QtPiDeck
     PRIVATE
