@@ -15,7 +15,7 @@ void DataManager::loadConfiguration() {
         m_appConfiguration.setHostAddress(QString{});
         m_appConfiguration.setHostPort(QString{});
         //global notification?
-        qDebug() << reason;
+        qDebug().noquote() << reason;
         return true;
     };
 
