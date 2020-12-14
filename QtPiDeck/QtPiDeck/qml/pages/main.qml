@@ -11,7 +11,7 @@ Window {
     visible: true
     width: 640
     height: 480
-    visibility: "FullScreen"
+    //visibility: "FullScreen"
     title: qsTr("QtPiDeck")
 
     Component.onCompleted: {
