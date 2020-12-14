@@ -4,7 +4,7 @@ import QtQuick.VirtualKeyboard 2.4
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-import QtPiDeck 1.0
+//import QtPiDeck 1.0
 
 Window {
     id: window
@@ -14,7 +14,7 @@ Window {
     //visibility: "FullScreen"
     title: qsTr("QtPiDeck")
 
-    Component.onCompleted: {
+    /*Component.onCompleted: {
         DataManager.loadConfiguration()
     }
 
@@ -117,7 +117,9 @@ Window {
                 onTextChanged: DataManager.appConfiguration.hostPort = text
             }
         }
-    }
+    }*/
+
+    TextField {}
 
     InputPanel {
         id: inputPanel
