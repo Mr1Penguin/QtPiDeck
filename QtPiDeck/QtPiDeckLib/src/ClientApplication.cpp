@@ -5,8 +5,8 @@
 #include <QIcon>
 
 static void initStaticResouces() {
-    Q_INIT_RESOURCE(qml);
-    Q_INIT_RESOURCE(icons);
+    Q_INIT_RESOURCE(qml); // NOLINT
+    Q_INIT_RESOURCE(icons); // NOLINT
 }
 
 namespace QtPiDeck::Client {
