@@ -3,11 +3,6 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick VirtualKeyboard REQUIRED)
 
 add_executable(QtPiDeck
     src/main.cpp
-    src/Models/AppConfiguration.cpp
-    src/DataManager.cpp
-    include/DataManager.hpp
-    include/Utils.hpp
-    include/Models/AppConfiguration.hpp
     icons.qrc
     qml.qrc)
 

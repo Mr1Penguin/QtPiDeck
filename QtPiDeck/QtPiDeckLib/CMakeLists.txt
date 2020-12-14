@@ -1,5 +1,5 @@
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Quick Network REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick Network REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Quick REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick REQUIRED)
 
 add_library(QtPiDeckLib STATIC
   src/ClientApplication.cpp
