@@ -61,6 +61,7 @@ void ClientApplication::appStartupPreparations() {
     initStaticResouces();
 }
 
-void ClientApplication::setupEngine(QQmlApplicationEngine & /*engine*/) {
+void ClientApplication::setupEngine(QQmlApplicationEngine & engine) {
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &m_deckClient, &Network::DeckClient::connectToServer);
 }
 }
