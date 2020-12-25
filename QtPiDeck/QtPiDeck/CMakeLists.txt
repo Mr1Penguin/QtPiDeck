@@ -7,7 +7,6 @@ add_executable(QtPiDeck
 target_link_libraries(QtPiDeck
     PRIVATE
     Qt${QT_VERSION_MAJOR}::Quick
-    Qt${QT_VERSION_MAJOR}::VirtualKeyboard
     QtPiDeckLib)
 
 target_include_directories(QtPiDeck
