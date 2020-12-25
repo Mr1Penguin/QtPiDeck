@@ -42,8 +42,9 @@ void setCursorVisibility() {
 }
 }
 
-void ClientApplication::appStartupPreparations() {
-    Application::appStartupPreparations();
+
+void ClientApplication::initialPreparations() {
+    Application::initialPreparations();
 
     // read doc about modules
     // usa same logic as for cursor visibility
@@ -52,6 +53,9 @@ void ClientApplication::appStartupPreparations() {
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+}
+
+void ClientApplication::appCreated() {
 
     QIcon::setThemeName("maintheme");
 
@@ -61,7 +65,7 @@ void ClientApplication::appStartupPreparations() {
     initStaticResouces();
 }
 
-void ClientApplication::setupEngine(QQmlApplicationEngine & engine) {
+void ClientApplication::engineCreated(QQmlApplicationEngine & engine) {
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &m_deckClient, &Network::DeckClient::connectToServer);
 }
 }
