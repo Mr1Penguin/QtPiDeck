@@ -28,7 +28,7 @@ void DeckClient::sendPing() {
     QByteArray qba;
     QDataStream out{&qba, QIODevice::WriteOnly};
     out.setByteOrder(QDataStream::BigEndian);
-    out.setVersion(QDataStream::Qt_5_15);
+    out.setVersion(QDataStream::Qt_5_11);
     out << response;
     m_socket.write(qba);
     m_socket.flush();
@@ -37,7 +37,7 @@ void DeckClient::sendPing() {
 void DeckClient::readData() {
     QDataStream qds(&m_socket);
     qds.setByteOrder(QDataStream::BigEndian);
-    qds.setVersion(QDataStream::Qt_5_15);
+    qds.setVersion(QDataStream::Qt_5_11);
 
     QtPiDeck::Network::MessageHeader header{};
 
