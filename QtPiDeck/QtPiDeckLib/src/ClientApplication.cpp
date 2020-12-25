@@ -52,7 +52,9 @@ void ClientApplication::initialPreparations() {
     // everything may change if custom keys are required
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
 
+#if QT_VERSION_MAJOR < 6
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
 }
 
 void ClientApplication::appCreated() {
