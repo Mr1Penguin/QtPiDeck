@@ -2,6 +2,7 @@
 
 #include <QHostAddress>
 
+#include "Network/DeckDataStream.hpp"
 #include "Network/MessageHeader.hpp"
 
 namespace QtPiDeck::Client::Network {
@@ -26,18 +27,14 @@ void DeckClient::sendPing() {
 
     QtPiDeck::Network::MessageHeader response{0, QtPiDeck::Network::MessageId::Ping};
     QByteArray qba;
-    QDataStream out{&qba, QIODevice::WriteOnly};
-    out.setByteOrder(QDataStream::BigEndian);
-    out.setVersion(QDataStream::Qt_5_11);
+    QtPiDeck::Network::DeckDataStream out{&qba, QtPiDeck::Network::DeckDataStream::OpenModeFlag::WriteOnly};
     out << response;
     m_socket.write(qba);
     m_socket.flush();
 }
 
 void DeckClient::readData() {
-    QDataStream qds(&m_socket);
-    qds.setByteOrder(QDataStream::BigEndian);
-    qds.setVersion(QDataStream::Qt_5_11);
+    QtPiDeck::Network::DeckDataStream qds(&m_socket);
 
     QtPiDeck::Network::MessageHeader header{};
 
