@@ -3,7 +3,7 @@
 #include <QObject>
 #include <QTcpSocket>
 
-namespace QtPiDeck::Client::Network {
+namespace QtPiDeck::Network {
 class DeckClient : public QObject {
     Q_OBJECT // NOLINT
 public:

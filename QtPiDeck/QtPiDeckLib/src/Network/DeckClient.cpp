@@ -5,7 +5,7 @@
 #include "Network/DeckDataStream.hpp"
 #include "Network/MessageHeader.hpp"
 
-namespace QtPiDeck::Client::Network {
+namespace QtPiDeck::Network {
 DeckClient::DeckClient(QObject* parent) : QObject(parent) {
     connect(&m_socket, &QTcpSocket::connected, this, &DeckClient::sendPing);
     connect(&m_socket, &QTcpSocket::readyRead, this, &DeckClient::readData);
@@ -25,18 +25,17 @@ void DeckClient::sendPing() {
 
     qDebug() << "Sending ping";
 
-    QtPiDeck::Network::MessageHeader response{0, QtPiDeck::Network::MessageId::Ping};
+    const MessageHeader response{0, MessageId::Ping};
     QByteArray qba;
-    QtPiDeck::Network::DeckDataStream out{&qba, QtPiDeck::Network::DeckDataStream::OpenModeFlag::WriteOnly};
+    DeckDataStream out{&qba, DeckDataStream::OpenModeFlag::WriteOnly};
     out << response;
     m_socket.write(qba);
     m_socket.flush();
 }
 
 void DeckClient::readData() {
-    QtPiDeck::Network::DeckDataStream qds(&m_socket);
-
-    QtPiDeck::Network::MessageHeader header{};
+    DeckDataStream qds(&m_socket);
+    MessageHeader header{};
 
     qds.startTransaction();
     qds >> header;
@@ -45,6 +44,6 @@ void DeckClient::readData() {
         return;
     }
 
-    qDebug() << "We got pong? -" << (header.messageId == QtPiDeck::Network::MessageId::Pong);
+    qDebug() << "We got pong? -" << (header.messageId == MessageId::Pong);
 }
 }

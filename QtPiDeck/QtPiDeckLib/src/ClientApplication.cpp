@@ -9,7 +9,7 @@ static void initStaticResouces() {
     Q_INIT_RESOURCE(icons); // NOLINT
 }
 
-namespace QtPiDeck::Client {
+namespace QtPiDeck {
 ClientApplication::ClientApplication() = default;
 
 auto ClientApplication::mainPage() -> QUrl {
