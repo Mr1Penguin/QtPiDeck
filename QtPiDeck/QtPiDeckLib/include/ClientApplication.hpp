@@ -3,7 +3,7 @@
 #include "Application.hpp"
 #include "Network/DeckClient.hpp"
 
-namespace QtPiDeck::Client {
+namespace QtPiDeck {
 class ClientApplication : public Application {
 public:
     ClientApplication();

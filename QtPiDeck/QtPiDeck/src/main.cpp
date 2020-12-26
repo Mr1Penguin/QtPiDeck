@@ -2,6 +2,6 @@
 
 auto main(int argc, char *argv[]) -> int
 {
-    QtPiDeck::Client::ClientApplication app;
+    QtPiDeck::ClientApplication app;
     return app.start(argc, argv);
 }
