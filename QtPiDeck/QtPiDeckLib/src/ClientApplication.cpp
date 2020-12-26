@@ -46,6 +46,10 @@ void setCursorVisibility() {
 void ClientApplication::initialPreparations() {
     Application::initialPreparations();
 
+    /*
+     * @todo Disable request for virtual keyboard for Qt6.0.0
+     * @body Qt6.0.0 does not have virtual keyboard. Need to check for Qt6.1/6.2. Module can be moved to Qt Marketplace.
+     * */
     // read doc about modules
     // usa same logic as for cursor visibility
     // need to add optional load of InputPanel
