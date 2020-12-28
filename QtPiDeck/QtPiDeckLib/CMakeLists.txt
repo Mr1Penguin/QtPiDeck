@@ -4,8 +4,10 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick REQUIRED)
 add_library(QtPiDeckLib STATIC
   src/ClientApplication.cpp
   src/Network/DeckClient.cpp
+  src/Services/SettingsStorage.cpp
   include/ClientApplication.hpp
   include/Network/DeckClient.hpp
+  include/Services/SettingsStorage.hpp
   icons.qrc
   qml.qrc)
 
