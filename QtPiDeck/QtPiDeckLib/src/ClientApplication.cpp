@@ -4,6 +4,8 @@
 #include <QCursor>
 #include <QIcon>
 
+#include "Services/SettingsStorage.hpp"
+
 static void initStaticResouces() {
     Q_INIT_RESOURCE(qml); // NOLINT
     Q_INIT_RESOURCE(icons); // NOLINT
@@ -69,9 +71,11 @@ void ClientApplication::appCreated() {
     registerQmlTypes();
 
     initStaticResouces();
+
+    ioc().registerService<Services::ISettingsStorage, Services::SettingsStorage>();
 }
 
 void ClientApplication::engineCreated(QQmlApplicationEngine & engine) {
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &m_deckClient, &Network::DeckClient::connectToServer);
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &m_deckClient, &Network::DeckClient::connectToServer); // clazy:exclude=connect-non-signal
 }
 }
