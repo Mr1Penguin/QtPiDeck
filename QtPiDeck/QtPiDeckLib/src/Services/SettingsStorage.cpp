@@ -20,4 +20,20 @@ void SettingsStorage::store(const QString& key, const QVariant& value) noexcept
 {
     m_settings->setValue(key, value);
 }
+
+auto SettingsStorage::deckServerAddress() const noexcept -> QString {
+    return read(DeckServerAddressKey, DeckServerAddressDefaultValue).toString();
+}
+
+void SettingsStorage::setDeckServerAddress(const QString& deckServerAddress) noexcept {
+    store(DeckServerAddressKey, deckServerAddress);
+}
+
+auto SettingsStorage::deckServerPort() const noexcept -> QString {
+    return read(DeckServerPortKey, DeckServerPortDefaultValue).toString();
+}
+
+void SettingsStorage::setDeckServerPort(const QString& deckServerPort) noexcept {
+    store(DeckServerPortKey, deckServerPort);
+}
 }
