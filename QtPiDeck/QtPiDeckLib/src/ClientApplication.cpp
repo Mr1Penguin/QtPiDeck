@@ -5,6 +5,9 @@
 #include <QIcon>
 
 #include "Services/SettingsStorage.hpp"
+#include "ViewModels/SettingsViewModel.hpp"
+
+#include <QRegularExpressionValidator>
 
 static void initStaticResouces() {
     Q_INIT_RESOURCE(qml); // NOLINT
@@ -72,10 +75,13 @@ void ClientApplication::appCreated() {
 
     initStaticResouces();
 
-    ioc().registerService<Services::ISettingsStorage, Services::SettingsStorage>();
+    ioc().registerService<Services::IClientSettingsStorage, Services::SettingsStorage>();
 }
 
 void ClientApplication::engineCreated(QQmlApplicationEngine & engine) {
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &m_deckClient, &Network::DeckClient::connectToServer); // clazy:exclude=connect-non-signal
+    engine.addImportPath("qrc:/qml/components");
+    //QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &m_deckClient, &Network::DeckClient::connectToServer); // clazy:exclude=connect-non-signal
+
+    ViewModels::SettingsViewModel::registerType();
 }
 }

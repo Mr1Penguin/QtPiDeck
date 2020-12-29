@@ -4,7 +4,7 @@ import QtQuick.VirtualKeyboard 2.4
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-//import QtPiDeck 1.0
+import QtPiDeck 1.0
 
 Window {
     id: window
@@ -13,6 +13,24 @@ Window {
     height: 480
     //visibility: "FullScreen"
     title: qsTr("QtPiDeck")
+
+    SettingsViewModel {
+        id: settingsViewModel
+    }
+
+    ColumnLayout {
+        TextField {
+            id: addressField
+            selectByMouse: true
+            text: settingsViewModel.deckServerAddress
+            onEditingFinished: settingsViewModel.deckServerAddress = text
+        }
+
+        PortField {
+            text: settingsViewModel.deckServerPort
+            onEditingFinished: settingsViewModel.deckServerPort = port
+        }
+    }
 
     InputPanel {
         id: inputPanel
