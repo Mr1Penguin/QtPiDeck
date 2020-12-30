@@ -77,7 +77,7 @@ public:
 
 template<>
 #if QT_VERSION_MAJOR == 6
-void createInto<ViewModels::SettingsViewModel>(void *memory, void *) {
+void createInto<ViewModels::SettingsViewModel>(void *memory, void *) { // NOLINT
 #else
 void createInto<ViewModels::SettingsViewModel>(void *memory) {
 #endif
