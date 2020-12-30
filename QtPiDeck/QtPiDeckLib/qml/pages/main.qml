@@ -30,6 +30,11 @@ Window {
             text: settingsViewModel.deckServerPort
             onEditingFinished: settingsViewModel.deckServerPort = port
         }
+
+        Button {
+            text: "Press me!"
+            onClicked: settingsViewModel.saveSettings();
+        }
     }
 
     InputPanel {
