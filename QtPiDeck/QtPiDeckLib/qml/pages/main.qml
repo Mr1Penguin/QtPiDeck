@@ -28,7 +28,7 @@ Window {
 
         PortField {
             text: settingsViewModel.deckServerPort
-            onEditingFinished: settingsViewModel.deckServerPort = port
+            onEditingFinished: settingsViewModel.deckServerPort = text
         }
 
         Button {

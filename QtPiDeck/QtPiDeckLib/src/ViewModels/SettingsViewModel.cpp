@@ -76,7 +76,11 @@ public:
 };
 
 template<>
-void createInto<QtPiDeck::ViewModels::SettingsViewModel>(void *memory) {
+#if QT_VERSION_MAJOR == 6
+void createInto<ViewModels::SettingsViewModel>(void *memory, void *) {
+#else
+void createInto<ViewModels::SettingsViewModel>(void *memory) {
+#endif
     auto settingsStorage = Application::current()->ioc().resolveService<Services::IClientSettingsStorage>();
     new (memory) QQmlElement<ViewModels::SettingsViewModel>{nullptr, std::move(settingsStorage)};
 }
