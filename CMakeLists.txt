@@ -23,3 +23,4 @@ endif()
 
 add_subdirectory(QtPiDeckCommon)
 add_subdirectory(QtPiDeck)
+add_subdirectory(Tests)

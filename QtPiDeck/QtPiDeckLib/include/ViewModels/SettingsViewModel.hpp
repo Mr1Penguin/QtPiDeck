@@ -13,11 +13,14 @@ class SettingsViewModel : public QObject, public Services::UseServices<Services:
     Q_PROPERTY(QString deckServerPort READ deckServerPort WRITE setDeckServerPort NOTIFY deckServerPortChanged)
 public:
     explicit SettingsViewModel(QObject* parent = nullptr) noexcept;
+    SettingsViewModel(QObject* parent, std::shared_ptr<Services::IClientSettingsStorage>&& storageService) noexcept;
 
     [[nodiscard]] auto deckServerAddress() const noexcept -> QString { return m_deckServerAddress; }
     void setDeckServerAddress(const QString& deckServerAddress) noexcept;
     [[nodiscard]] auto deckServerPort() const noexcept -> QString { return m_deckServerPort; }
     void setDeckServerPort(const QString& deckServerPort) noexcept;
+
+    Q_INVOKABLE void saveSettings() noexcept;
 
     static void registerType();
 
