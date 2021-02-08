@@ -11,7 +11,6 @@
 
 static void initStaticResouces() {
     Q_INIT_RESOURCE(qml); // NOLINT
-    Q_INIT_RESOURCE(icons); // NOLINT
 }
 
 namespace QtPiDeck {
@@ -80,7 +79,7 @@ void ClientApplication::appCreated() {
 
 void ClientApplication::engineCreated(QQmlApplicationEngine & engine) {
     engine.addImportPath("qrc:/qml/components");
-    //QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &m_deckClient, &Network::DeckClient::connectToServer); // clazy:exclude=connect-non-signal
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &m_deckClient, &Network::DeckClient::connectToServer); // clazy:exclude=connect-non-signal
 
     ViewModels::SettingsViewModel::registerType();
 }
