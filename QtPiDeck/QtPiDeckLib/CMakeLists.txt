@@ -11,7 +11,6 @@ add_library(QtPiDeckLib STATIC
   include/Network/DeckClient.hpp
   include/Services/SettingsStorage.hpp
   include/ViewModels/SettingsViewModel.hpp
-  icons.qrc
   qml.qrc)
 
 target_include_directories(QtPiDeckLib
