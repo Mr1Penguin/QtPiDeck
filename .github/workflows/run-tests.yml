@@ -64,8 +64,8 @@ jobs:
         run: cmake .. -G Ninja -DBUILD_COMMON_TESTS=OFF
         working-directory: build
         env:
-          CC: gcc-${{ matrix.cfg.gcc }}
-          CXX: g++-${{ matrix.cfg.gcc }}
+          CC: ${{ matrix.cfg.cc }}
+          CXX: ${{ matrix.cfg.cxx }}
       - name: Build project
         run: ninja
         working-directory: build
