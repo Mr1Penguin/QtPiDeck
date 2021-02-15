@@ -1,8 +1,9 @@
 #include "ClientApplication.hpp"
 
-#include <QGuiApplication>
 #include <QCursor>
+#include <QGuiApplication>
 #include <QIcon>
+#include <QQuickWindow>
 
 #include "Services/SettingsStorage.hpp"
 #include "ViewModels/SettingsViewModel.hpp"
@@ -10,77 +11,75 @@
 #include <QRegularExpressionValidator>
 
 static void initStaticResouces() {
-    Q_INIT_RESOURCE(qml); // NOLINT
+  Q_INIT_RESOURCE(qml); // NOLINT
 }
 
 namespace QtPiDeck {
 ClientApplication::ClientApplication() = default;
 
-auto ClientApplication::mainPage() -> QUrl {
-    return QUrl{QStringLiteral("qrc:/qml/pages/main.qml")};
-}
+auto ClientApplication::mainPage() -> QUrl { return QUrl{QStringLiteral("qrc:/qml/pages/main.qml")}; }
 
 namespace {
 void registerQmlTypes() {
-    /*DataManager::registerTypes();
-    Models::AppConfiguration::registerTypes();*/
+  /*DataManager::registerTypes();
+  Models::AppConfiguration::registerTypes();*/
 }
+
+constexpr int OptionEnabled = 1;
 
 void setCursorVisibility() {
-    auto hideCursorVar = qgetenv("HIDE_CURSOR");
-    auto hideCursor = [](){
-        QCursor cursor(Qt::BlankCursor);
-        QGuiApplication::setOverrideCursor(cursor);
-        QGuiApplication::changeOverrideCursor(cursor);
-    };
-    if (hideCursorVar.isEmpty()) {
+  auto hideCursorVar = qgetenv("HIDE_CURSOR");
+  auto hideCursor = []() {
+    QCursor cursor(Qt::BlankCursor);
+    QGuiApplication::setOverrideCursor(cursor);
+    QGuiApplication::changeOverrideCursor(cursor);
+  };
+  if (hideCursorVar.isEmpty()) {
 #ifdef Q_PROCESSOR_ARM
-        hideCursor();
+    hideCursor();
 #endif
-        return;
-    }
+    return;
+  }
 
-    if (hideCursorVar.toInt() != 0) {
-        hideCursor();
-    }
+  if (hideCursorVar.toInt() == OptionEnabled) {
+    hideCursor();
+  }
+}
+
+void requestKeyboard() {
+  const auto disableKeyboard = qgetenv("DISABLE_KEYBOARD");
+  if (disableKeyboard.isEmpty() || disableKeyboard.toInt() != OptionEnabled) {
+    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+  }
 }
 }
-
 
 void ClientApplication::initialPreparations() {
-    Application::initialPreparations();
-
-    /*
-     * @todo Disable request for virtual keyboard for Qt6.0.0
-     * @body Qt6.0.0 does not have virtual keyboard. Need to check for Qt6.1/6.2. Module can be moved to Qt Marketplace.
-     * */
-    // read doc about modules
-    // usa same logic as for cursor visibility
-    // need to add optional load of InputPanel
-    // everything may change if custom keys are required
-    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+  Application::initialPreparations();
+  requestKeyboard();
 
 #if QT_VERSION_MAJOR < 6
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 }
 
 void ClientApplication::appCreated() {
 
-    QIcon::setThemeName("maintheme");
+  QIcon::setThemeName("maintheme");
 
-    setCursorVisibility();
-    registerQmlTypes();
+  setCursorVisibility();
+  registerQmlTypes();
 
-    initStaticResouces();
+  initStaticResouces();
 
-    ioc().registerService<Services::IClientSettingsStorage, Services::SettingsStorage>();
+  ioc().registerService<Services::IClientSettingsStorage, Services::SettingsStorage>();
 }
 
-void ClientApplication::engineCreated(QQmlApplicationEngine & engine) {
-    engine.addImportPath("qrc:/qml/components");
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &m_deckClient, &Network::DeckClient::connectToServer); // clazy:exclude=connect-non-signal
+void ClientApplication::engineCreated(QQmlApplicationEngine& engine) {
+  engine.addImportPath(QStringLiteral("qrc:/qml/components"));
+  QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &m_deckClient, // clazy:exclude=connect-non-signal
+                   &Network::DeckClient::connectToServer);
 
-    ViewModels::SettingsViewModel::registerType();
+  ViewModels::SettingsViewModel::registerType();
 }
 }
