@@ -12,9 +12,9 @@ DeckClient::DeckClient(QObject* parent) : QObject(parent) {
 }
 
 void DeckClient::connectToServer() {
-    constexpr qint16 defaultPort = 13000;
     m_socket.close();
-    m_socket.connectToHost(QHostAddress::LocalHost, defaultPort);
+    const auto &settingStorage = service<Services::IClientSettingsStorage>();
+    m_socket.connectToHost(settingStorage->deckServerAddress(), settingStorage->deckServerPort().toInt());
 }
 
 void DeckClient::sendPing() {
