@@ -3,17 +3,23 @@
 #include <QObject>
 #include <QTcpSocket>
 
+#include "Services/IClientSettingsStorage.hpp"
+#include "Services/IMessageBus.hpp"
+#include "Services/UseServices.hpp"
+
 namespace QtPiDeck::Network {
-class DeckClient : public QObject {
-    Q_OBJECT // NOLINT
+class DeckClient : public QObject,
+                   public Services::UseServices<Services::IClientSettingsStorage, Services::IMessageBus> {
+  Q_OBJECT // NOLINT
 public:
-    explicit DeckClient(QObject *parent = nullptr);
+  explicit DeckClient(QObject* parent = nullptr);
 
-    void connectToServer();
+  void connectToServer();
+
 private:
-    void sendPing();
-    void readData();
+  void sendPing();
+  void readData();
 
-    QTcpSocket m_socket{};
+  QTcpSocket m_socket{};
 };
 }

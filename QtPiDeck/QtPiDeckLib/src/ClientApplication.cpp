@@ -5,6 +5,7 @@
 #include <QIcon>
 #include <QQuickWindow>
 
+#include "Services/MessageBus.hpp"
 #include "Services/SettingsStorage.hpp"
 #include "ViewModels/SettingsViewModel.hpp"
 
@@ -72,12 +73,14 @@ void ClientApplication::appCreated() {
 
   initStaticResouces();
 
+  ioc().registerSingleton<Services::IMessageBus>(std::make_shared<Services::MessageBus>(nullptr));
   ioc().registerService<Services::IClientSettingsStorage, Services::SettingsStorage>();
 }
 
 void ClientApplication::engineCreated(QQmlApplicationEngine& engine) {
   engine.addImportPath(QStringLiteral("qrc:/qml/components"));
-  QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &m_deckClient, // clazy:exclude=connect-non-signal
+  m_deckClient = ioc().make<Network::DeckClient>();
+  QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, m_deckClient.get(), // clazy:exclude=connect-non-signal
                    &Network::DeckClient::connectToServer);
 
   ViewModels::SettingsViewModel::registerType();
