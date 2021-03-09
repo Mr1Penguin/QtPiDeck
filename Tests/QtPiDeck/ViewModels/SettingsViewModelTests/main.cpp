@@ -57,19 +57,19 @@ private:
 
 void SettingsViewModelTests::addressIsInitedWithService() {
     auto settingsStorage = std::make_shared<DummySettingsStorage>();
-    m_viewModel = std::make_unique<SettingsViewModel>(nullptr, settingsStorage);
+    m_viewModel = std::make_unique<SettingsViewModel>(nullptr, settingsStorage, nullptr);
     QCOMPARE(m_viewModel->deckServerAddress(), DummySettingsStorage::address);
 }
 
 void SettingsViewModelTests::portIsInitedWithService() {
     auto settingsStorage = std::make_shared<DummySettingsStorage>();
-    m_viewModel = std::make_unique<SettingsViewModel>(nullptr, settingsStorage);
+    m_viewModel = std::make_unique<SettingsViewModel>(nullptr, settingsStorage, nullptr);
     QCOMPARE(m_viewModel->deckServerPort(), DummySettingsStorage::port);
 }
 
 void SettingsViewModelTests::saveSettingsSetsStorageValuesWithService() {
     auto settingsStorage = std::make_shared<DummySettingsStorage>();
-    m_viewModel = std::make_unique<SettingsViewModel>(nullptr, settingsStorage);
+    m_viewModel = std::make_unique<SettingsViewModel>(nullptr, settingsStorage, nullptr);
     const QString newAddress{"52.52.52.52"};
     const QString newPort{"5252"};
     m_viewModel->setDeckServerAddress(newAddress);
