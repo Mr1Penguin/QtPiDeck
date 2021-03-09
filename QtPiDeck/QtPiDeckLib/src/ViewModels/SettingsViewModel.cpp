@@ -101,7 +101,7 @@ void SettingsViewModel::updateTestEnabled() noexcept {
   const auto& settings = service<Services::IClientSettingsStorage>();
   const auto& client = service<Network::DeckClient>();
 
-  const auto value = m_deckServerAddress != settings->deckServerAddress() ||
+  const auto value = !settings || !client || m_deckServerAddress != settings->deckServerAddress() ||
                      m_deckServerPort != settings->deckServerPort() || !client->isConnected();
 
   setTestEnabled(value);
