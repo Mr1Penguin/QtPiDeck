@@ -8,7 +8,7 @@ macro(add_cpp_test PATH)
     get_test_exe_name(EXE_NAME ${TEST_NAME})
 
     add_executable(${EXE_NAME} ${PATH}/main.cpp)
-    add_test(NAME ${TEST_NAME} COMMAND ${EXE_NAME})
+    add_test(NAME ${TEST_NAME} COMMAND ${EXE_NAME} -platform offscreen)
 
     target_link_libraries(${EXE_NAME}
         PRIVATE
