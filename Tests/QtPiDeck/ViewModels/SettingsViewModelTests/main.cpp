@@ -181,6 +181,6 @@ void SettingsViewModelTests::testDisabledIfConnectedToSameServer() {
 }
 }
 
-QTEST_MAIN(QtPiDeck::ViewModels::Tests::SettingsViewModelTests) // NOLINT
+QTEST_GUILESS_MAIN(QtPiDeck::ViewModels::Tests::SettingsViewModelTests) // NOLINT
 
 #include "main.moc"
