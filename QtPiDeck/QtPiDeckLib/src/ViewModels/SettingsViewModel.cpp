@@ -30,6 +30,11 @@ SettingsViewModel::SettingsViewModel(QObject* parent,
   connect(this, &SettingsViewModel::deckServerAddressChanged, this, &SettingsViewModel::updateTestEnabled);
   connect(this, &SettingsViewModel::deckServerPortChanged, this, &SettingsViewModel::updateTestEnabled);
 
+  if (deckClient) {
+    connect(deckClient.get(), &Network::DeckClient::connected, this, &SettingsViewModel::updateTestEnabled);
+    connect(deckClient.get(), &Network::DeckClient::disconnected, this, &SettingsViewModel::updateTestEnabled);
+  }
+
   updateTestEnabled();
 }
 
@@ -73,7 +78,7 @@ void SettingsViewModel::testConnection() noexcept {
   auto testClient = std::make_shared<Network::TestDeckClient>(nullptr);
 
   connect(testClient.get(), &Network::TestDeckClient::connected, testClient.get(), &Network::TestDeckClient::sendPing);
-  connect(testClient.get(), &Network::TestDeckClient::pongReceived, testClient.get(),
+  connect(testClient.get(), &Network::TestDeckClient::pongReceived, this,
           [this]() { setTestingStatus(TestingStatus::Ok); });
   testClient->connectToServer(m_deckServerAddress, m_deckServerPort.toInt());
 

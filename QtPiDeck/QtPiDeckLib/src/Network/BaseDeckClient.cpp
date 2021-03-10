@@ -5,6 +5,7 @@
 namespace QtPiDeck::Network {
 BaseDeckClient::BaseDeckClient(QObject* parent) : QObject(parent) {
   connect(&m_socket, &QTcpSocket::connected, this, &BaseDeckClient::connected);
+  connect(&m_socket, &QTcpSocket::disconnected, this, &BaseDeckClient::disconnected);
   connect(&m_socket, &QTcpSocket::readyRead, this, &BaseDeckClient::readHeader);
 }
 
@@ -23,7 +24,6 @@ auto BaseDeckClient::send(MessageType messageType, const QString& requestId) noe
   DeckDataStream out{&qba, DeckDataStream::OpenModeFlag::WriteOnly};
   out << response;
   m_socket.write(qba);
-  //m_socket.flush();
   return std::nullopt;
 }
 
@@ -39,7 +39,5 @@ void BaseDeckClient::readHeader() {
   }
 
   emit headerReceived(header);
-
-  qDebug() << "We got pong? -" << (header.messageType == MessageType::Pong) << header.requestId;
 }
 }

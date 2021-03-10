@@ -25,6 +25,7 @@ public:
 
 signals:
   void connected();
+  void disconnected();
   void headerReceived(MessageHeader);
 
 protected:

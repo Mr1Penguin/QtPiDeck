@@ -10,12 +10,12 @@
 
 namespace QtPiDeck::Network {
 class DeckClient : public BaseDeckClient,
-                   public Services::UseServices<Services::IClientSettingsStorage, Services::IMessageBus>,
+                   public Services::UseServices<Services::IClientSettingsStorage>,
                    public Services::ServiceInterface {
   Q_OBJECT // NOLINT
 public:
-  explicit DeckClient(QObject* parent = nullptr);
+  explicit DeckClient(QObject* parent = nullptr) noexcept;
 
-  void connectToServer();
+  void connectToServer() noexcept;
 };
 }
