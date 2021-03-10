@@ -75,13 +75,13 @@ void ClientApplication::appCreated() {
 
   ioc().registerSingleton<Services::IMessageBus>(std::make_shared<Services::MessageBus>(nullptr));
   ioc().registerService<Services::IClientSettingsStorage, Services::SettingsStorage>();
+
+  ioc().registerSingleton(ioc().make<Network::DeckClient, Services::CreationType::SharedPointer>());
 }
 
 void ClientApplication::engineCreated(QQmlApplicationEngine& engine) {
   engine.addImportPath(QStringLiteral("qrc:/qml/components"));
-  m_deckClient = ioc().make<Network::DeckClient>();
-  QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, m_deckClient.get(), // clazy:exclude=connect-non-signal
-                   &Network::DeckClient::connectToServer);
+  m_deckClient = ioc().resolveService<Network::DeckClient>();
 
   ViewModels::SettingsViewModel::registerType();
 }

@@ -15,6 +15,6 @@ protected:
   void engineCreated(QQmlApplicationEngine& engine) final;
 
 private:
-  std::unique_ptr<Network::DeckClient> m_deckClient;
+  std::shared_ptr<Network::DeckClient> m_deckClient;
 };
 }
