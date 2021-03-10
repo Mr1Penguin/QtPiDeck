@@ -113,6 +113,7 @@ class DefaultSettingsStorage final : public EmptySettingsStorage {
 };
 
 void SettingsViewModelTests::testEnabledIfConnectedToDifferentServer() {
+  QEventLoop loop;
   Services::Ioc ioc;
   ioc.registerService<Services::IClientSettingsStorage, DefaultSettingsStorage>();
   ioc.registerSingleton<Network::DeckClient>(
@@ -136,9 +137,9 @@ void SettingsViewModelTests::testEnabledIfConnectedToDifferentServer() {
 
   QTcpSocket sock;
   QSignalSpy spy{client.get(), &Network::DeckClient::connected};
+  connect(client.get(), &Network::DeckClient::connected, &loop, [&loop]() { loop.exit(); });
   QTimer::singleShot(0, client.get(), &Network::DeckClient::connectToServer);
-  QVERIFY(sspy.wait());
-  QVERIFY(spy.wait());
+  loop.exec();
 
   QCOMPARE(sspy.count(), 1);
   QCOMPARE(spy.count(), 1);
@@ -147,6 +148,7 @@ void SettingsViewModelTests::testEnabledIfConnectedToDifferentServer() {
 }
 
 void SettingsViewModelTests::testDisabledIfConnectedToSameServer() {
+  QEventLoop loop;
   Services::Ioc ioc;
   ioc.registerService<Services::IClientSettingsStorage, DefaultSettingsStorage>();
   ioc.registerSingleton<Network::DeckClient>(
@@ -170,9 +172,9 @@ void SettingsViewModelTests::testDisabledIfConnectedToSameServer() {
 
   QTcpSocket sock;
   QSignalSpy spy{client.get(), &Network::DeckClient::connected};
+  connect(client.get(), &Network::DeckClient::connected, &loop, [&loop]() { loop.exit(); });
   QTimer::singleShot(0, client.get(), &Network::DeckClient::connectToServer);
-  QVERIFY(sspy.wait());
-  QVERIFY(spy.wait());
+  loop.exec();
 
   QCOMPARE(sspy.count(), 1);
   QCOMPARE(spy.count(), 1);
@@ -181,6 +183,6 @@ void SettingsViewModelTests::testDisabledIfConnectedToSameServer() {
 }
 }
 
-QTEST_MAIN(QtPiDeck::ViewModels::Tests::SettingsViewModelTests) // NOLINT
+QTEST_GUILESS_MAIN(QtPiDeck::ViewModels::Tests::SettingsViewModelTests) // NOLINT
 
 #include "main.moc"
