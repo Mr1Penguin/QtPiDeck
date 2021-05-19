@@ -1,7 +1,7 @@
-import QtQuick 2.12
-import QtQuick.Window 2.12
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick 2.11
+import QtQuick.Window 2.11
+import QtQuick.Controls 2.4
+import QtQuick.Layouts 1.3
 
 import QtPiDeck 1.0
 
@@ -98,6 +98,7 @@ Window {
                         height: 40
                         renderTarget: Canvas.Image
                         renderStrategy: Canvas.Cooperative
+                        visible: false
 
                         SequentialAnimation {
                             id: pointAAnimation
@@ -105,7 +106,7 @@ Window {
                             running: canvas.running
                             alwaysRunToEnd: true
 
-                            onFinished: canvas.onAnimationFinished()
+                            onStopped: canvas.onAnimationFinished()
 
                             PauseAnimation {
                                 duration: canvas.pauseDuration
