@@ -16,11 +16,11 @@ jobs:
     strategy:
       matrix:
         cfg:
-        - { qt: 5.11.3, cc: gcc-8, cxx: g++-8, experimental: false, dependencies: null, vcpkgtriplet: x64-linux }
-        - { qt: 5.11.3, cc: gcc-10, cxx: g++-10, experimental: true, dependencies: null, vcpkgtriplet: x64-linux }
-        - { qt: 5.15.2, cc: gcc-8, cxx: g++-8, experimental: false, dependencies: null, vcpkgtriplet: x64-linux }
-        - { qt: 5.15.2, cc: gcc-10, cxx: g++-10, experimental: false, dependencies: null, vcpkgtriplet: x64-linux }
-        - { qt: 6.0.0, cc: gcc-10, cxx: g++-10, experimental: true, dependencies: null, vcpkgtriplet: x64-linux }
+        - { qt: 5.11.3, cc: gcc-8, cxx: g++-8, experimental: false, dependencies: ["boost-test"], vcpkgtriplet: x64-linux }
+        - { qt: 5.11.3, cc: gcc-10, cxx: g++-10, experimental: true, dependencies: ["boost-test"], vcpkgtriplet: x64-linux }
+        - { qt: 5.15.2, cc: gcc-8, cxx: g++-8, experimental: false, dependencies: ["boost-test"], vcpkgtriplet: x64-linux }
+        - { qt: 5.15.2, cc: gcc-10, cxx: g++-10, experimental: false, dependencies: ["boost-test"], vcpkgtriplet: x64-linux }
+        - { qt: 6.1.0, cc: gcc-10, cxx: g++-10, experimental: true, dependencies: ["boost-test"], vcpkgtriplet: x64-linux }
 
     name: Qt${{ matrix.cfg.qt }} - ${{ matrix.cfg.cc }}
     continue-on-error: ${{ matrix.cfg.experimental }}
@@ -55,7 +55,16 @@ jobs:
           sudo apt update
           sudo apt install
           sudo apt install vulkan-sdk libxkbcommon-dev -y
-        if: matrix.cfg.qt == '6.0.0'
+        if: matrix.cfg.qt == '6.1.0'
+
+      - uses: lukka/run-vcpkg@v6
+        with:
+          vcpkgDirectory: ${{ github.workspace }}/QtPiDeckCommon/ext/vcpkg
+          appendedCacheKey: ${{ join(matrix.cfg.dependencies, '-') }}
+          vcpkgTriplet: ${{ matrix.cfg.vcpkgtriplet }}
+          vcpkgArguments: ${{ join(matrix.cfg.dependencies, ' ') }} --overlay-triplets=${{ github.workspace }}/QtPiDeckCommon/ext/vcpkg-tripltets/
+          doNotUpdateVcpkg: true
+        if: matrix.cfg.dependencies != null
 
       - name: Make build dir
         run: mkdir build

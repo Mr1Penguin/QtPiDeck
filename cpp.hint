@@ -1,0 +1,11 @@
+// Hint files help the Visual Studio IDE interpret Visual C++ identifiers
+// such as names of functions and macros.
+// For more information see https://go.microsoft.com/fwlink/?linkid=865984
+#define CT_BOOST_AUTO_TEST_CASE(testcase) BOOST_AUTO_TEST_CASE(testcase)
+#define CT_BOOST_AUTO_TEST_SUITE_END() BOOST_AUTO_TEST_SUITE_END()
+#define CT_BOOST_FIXTURE_TEST_SUITE(suite, fixture) BOOST_FIXTURE_TEST_SUITE(suite, fixture)
+#define CT_BOOST_TEST(test) BOOST_TEST(test)
+#define CT_BOOST_AUTO_TEST_SUITE(suite) BOOST_AUTO_TEST_SUITE(suite)
+#define CT_BOOST_FIXTURE_TEST_CASE(testcase, fixture) BOOST_FIXTURE_TEST_CASE(testcase, fixture)
+#define Q_INVOKABLE QT_ANNOTATE_FUNCTION(qt_invokable)
+#define Q_INVOKABLE
