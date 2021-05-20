@@ -70,7 +70,7 @@ jobs:
         run: mkdir build
 
       - name: Run cmake
-        run: cmake .. -G Ninja -DBUILD_COMMON_TESTS=OFF
+        run: cmake .. -G Ninja -DBUILD_COMMON_TESTS=OFF -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/QtPiDeckCommon/ext/vcpkg/scripts/buildsystems/vcpkg.cmake
         working-directory: build
         env:
           CC: ${{ matrix.cfg.cc }}
